@@ -4,10 +4,10 @@ import cv2
 from PIL import Image, ImageTk
 import threading
 
-class ZingMP3App(tk.Tk):
+class AiMusicApp(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Zing MP3 Clone")
+        self.title("EMOTION MUSIC")
         self.geometry("1024x600")
         self.configure(bg="#1E1E1E")  # Màu nền tối
 
@@ -19,7 +19,7 @@ class ZingMP3App(tk.Tk):
         self.left_menu.place(x=0, y=0, width=180, height=600)
 
         # Logo Zing mp3
-        logo = tk.Label(self.left_menu, text="Zing mp3", font=("Arial", 16, "bold"), fg="#FFFFFF", bg="#1E1E1E")
+        logo = tk.Label(self.left_menu, text="Emotion Music", font=("Arial", 16, "bold"), fg="#FFFFFF", bg="#1E1E1E")
         logo.pack(pady=20)
 
         # Danh sách mục menu
@@ -101,9 +101,16 @@ class ZingMP3App(tk.Tk):
         self.camera_section = tk.Frame(self, bg="#2C2C2C", width=544, height=530)
         self.camera_section.place(x=180, y=0, width=544, height=530)
 
-        self.camera_frame = tk.Label(self.camera_section, bg="#2C2C2C")
-        self.camera_frame.pack(fill="both", padx=10, pady=(10, 50), expand=True)
+        # Sử dụng grid layout để bố trí các widget trong camera_section
+        self.camera_section.grid_rowconfigure(0, weight=1)  # Hàng đầu tiên mở rộng
+        self.camera_section.grid_rowconfigure(1, weight=0)  # Hàng cho nút không mở rộng
+        self.camera_section.grid_columnconfigure(0, weight=1)  # Cột mở rộng
 
+        # Khung camera
+        self.camera_frame = tk.Label(self.camera_section, bg="#2C2C2C")
+        self.camera_frame.grid(row=0, column=0, sticky="nsew", padx=10, pady=(10, 50))
+
+        # Nút bật/tắt camera
         self.toggle_camera_button = tk.Button(
             self.camera_section,
             text="Bật Camera",
@@ -112,7 +119,7 @@ class ZingMP3App(tk.Tk):
             fg="white",
             command=self.toggle_camera
         )
-        self.toggle_camera_button.pack(pady=10, side="bottom")
+        self.toggle_camera_button.grid(row=1, column=0, pady=10)
 
         # Danh sách bài hát
         self.song_list = tk.Frame(self.right_sidebar, bg="#2C2C2C")
@@ -187,9 +194,9 @@ class ZingMP3App(tk.Tk):
             self.camera_frame.config(image="")
         else:
             self.camera_on = True
-            self.toggle_camera_button.config(text="Tắt Camera")
             self.cap = cv2.VideoCapture(0)
             threading.Thread(target=self.update_camera_frame, daemon=True).start()
+            self.toggle_camera_button.config(text="Tắt Camera")
 
     def update_camera_frame(self):
         while self.camera_on and self.cap and self.cap.isOpened():
@@ -204,5 +211,5 @@ class ZingMP3App(tk.Tk):
                 break
 
 if __name__ == "__main__":
-    app = ZingMP3App()
+    app = AiMusicApp()
     app.mainloop()
