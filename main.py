@@ -45,31 +45,6 @@ class AiMusicApp(tk.Tk):
             )
             btn.pack(fill="x", padx=20, pady=5)
 
-        # Nút đăng nhập
-        login_frame = tk.Frame(self.left_menu, bg="#1E1E1E")
-        login_frame.pack(fill="x", pady=20)
-
-        login_label = tk.Label(
-            login_frame,
-            text="Đăng nhập để khám phá\nplaylist dành riêng cho bạn",
-            font=("Arial", 10),
-            bg="#1E1E1E",
-            fg="white",
-            justify="center"
-        )
-        login_label.pack(pady=5)
-
-        login_button = tk.Button(
-            login_frame,
-            text="ĐĂNG NHẬP",
-            font=("Arial", 10, "bold"),
-            bg="#8A2BE2",
-            fg="white",
-            relief="flat",
-            padx=20,
-            pady=5
-        )
-        login_button.pack(pady=5)
 
         # Nút tạo playlist mới
         new_playlist_button = tk.Button(
